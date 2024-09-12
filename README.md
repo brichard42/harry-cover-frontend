@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Harry Cover Website
 
-## Getting Started
+Harry Cover is a Next.js website designed to help users generate cover letters based on their resume and job description using AI. The website is currently in it v0 with the Cover Letter Builder feature completed. The Dashboard and Resume Builder are still works in progress.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Cover Letter Builder (v0)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Import Resume**: Users can upload their resume as a PDF file.
+-   **Job Description**: Users can copy and paste the job description.
+-   **Generate Cover Letter**: The system generates a cover letter using AI by calling the backend service.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Dashboard (WIP)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   A placeholder for future dashboard functionalities.
 
-## Learn More
+### Resume Builder (WIP)
 
-To learn more about Next.js, take a look at the following resources:
+-   A placeholder for future resume building functionalities.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-   **Next.js**: A React framework for building server-side rendered applications.
+-   **v0**: Vercel's AI to generate nextJS code
+-   **Tailwind**: To style quickly style and template the website
+-   **Vercel**: Hosting and CI/CD using Vercel developer tools.
+-   **AI Backend**: The backend service for generating cover letters is available at [harry-cover-backend](https://github.com/brichard42/harry-cover-backend). And hosted at [https://harry-cover.brichard42.com/](https://harry-cover.brichard42.com/)
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   Node.js
+-   npm or yarn
+
+### Steps
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/your-username/harry-cover-frontend.git
+    cd harry-cover-frontend
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3. Create a `.env.local` file and add the following environment variables:
+
+    ```env
+    NEXT_PUBLIC_BACKEND_URL=http://your-backend-url
+    ```
+
+4. Run the development server:
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Deployment
+
+The website is hosted using Vercel. To deploy your own version, follow these steps:
+
+1. Push your code to a GitHub repository.
+2. Go to [Vercel](https://vercel.com) and import your repository.
+3. Follow the prompts to deploy your application.
+
+## Usage
+
+1. **Cover Letter Builder**:
+
+    - Navigate to the Cover Letter Builder page.
+    - Upload your resume as a PDF file.
+    - Copy and paste the job description.
+    - Click on "Generate Cover Letter" to generate the cover letter using AI.
+
+2. **Dashboard**:
+
+    - Currently a placeholder for future functionalities.
+
+3. **Resume Builder**:
+    - Currently a placeholder for future functionalities.
