@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { generateCoverLetter } from "./ollama";
+import axios from "axios";
 
 export function GenerateCoverLetter({
 	resumeFile,
@@ -40,6 +40,35 @@ export function GenerateCoverLetter({
 			setCoverLetter(coverLetter);
 			setLoading(false);
 		}
+	};
+
+	const generateCoverLetter = async (formData: FormData) => {
+		let coverLetter = "Could not generate cover letter";
+
+		try {
+			const response = await axios.post(
+				`/api/ollama/generate-cover-letter`,
+				formData,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
+
+			const resultJson = response.data;
+
+			if (resultJson.success) {
+				coverLetter = resultJson.data;
+			}
+		} catch (error) {
+			console.error(
+				`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | error:`,
+				error
+			);
+		}
+
+		return coverLetter;
 	};
 
 	return (
