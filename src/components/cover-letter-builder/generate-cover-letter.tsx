@@ -42,10 +42,9 @@ export function GenerateCoverLetter({
 
 	const generateCoverLetter = async (formData: FormData) => {
 		let coverLetter = "";
-
 		try {
 			const response = await axios.post(
-				`/api/ollama/generate-cover-letter`,
+				`${process.env.NEXT_PUBLIC_API_URL}/ollama/generate-cover-letter`,
 				formData,
 				{
 					headers: {
@@ -53,6 +52,10 @@ export function GenerateCoverLetter({
 					},
 					responseType: "stream",
 				}
+			);
+			console.info(
+				`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | response:`,
+				response
 			);
 
 			response.data.on("data", (chunk: Buffer) => {
