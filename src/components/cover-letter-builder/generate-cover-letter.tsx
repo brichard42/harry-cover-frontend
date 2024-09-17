@@ -28,47 +28,65 @@ export function GenerateCoverLetter({
 			formData.append("resumeFile", resumeFile);
 		}
 
-		let coverLetter = "";
 		try {
-			coverLetter = await generateCoverLetter(formData);
+			await generateCoverLetter(formData);
 		} catch (error) {
 			console.error(
 				`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | error:`,
 				error
 			);
 		} finally {
-			setCoverLetter(coverLetter);
 			setLoading(false);
 		}
 	};
 
 	const generateCoverLetter = async (formData: FormData) => {
-		let coverLetter = "Could not generate cover letter";
-
+		let coverLetter = "";
 		try {
 			const response = await axios.post(
-				`/api/ollama/generate-cover-letter`,
+				`${process.env.NEXT_PUBLIC_API_URL}/ollama/generate-cover-letter`,
 				formData,
 				{
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
+					responseType: "stream",
 				}
 			);
+			console.info(
+				`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | response:`,
+				response
+			);
 
-			const resultJson = response.data;
+			response.data.on("data", (chunk: Buffer) => {
+				console.info(
+					`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | chunk:`,
+					chunk
+				);
+				coverLetter += chunk.toString();
+				setCoverLetter(coverLetter);
+			});
 
-			if (resultJson.success) {
-				coverLetter = resultJson.data;
-			}
+			return new Promise((resolve, reject) => {
+				response.data.on("end", () => {
+					resolve(coverLetter);
+				});
+
+				response.data.on("error", (error: unknown) => {
+					console.error(
+						`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | Stream error:`,
+						error
+					);
+					reject("Could not generate cover letter");
+				});
+			});
 		} catch (error) {
 			console.error(
 				`\x1b[1;41m🚀 BRICHARD-LOGGER\x1b[0m ~  | error:`,
 				error
 			);
+			return "Could not generate cover letter";
 		}
-
-		return coverLetter;
 	};
 
 	return (
